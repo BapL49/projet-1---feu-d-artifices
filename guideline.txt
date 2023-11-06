@@ -1,0 +1,21 @@
+L'utilisateur peut pouvoir : 
+- Afficher une fenetre
+- Voir un écran de démarage qui affiche le nom du jeu (PyroTechnics)
+- Déplacer la souris dans la fenetre et cliquer
+    - detecter les coordonnées du clique
+- Faire apparaitre un feu d'artifice à l'endroit du clique
+- 
+
+
+
+
+
+
+
+
+chose en plus :
+- faire un bouton pour fermer la fenetre 
+
+
+nom du projet :
+- PyroTechnics

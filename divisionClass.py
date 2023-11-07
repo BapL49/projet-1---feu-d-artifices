@@ -6,3 +6,4 @@ class Division:
         self.positionY = positionY
         self.vitesse = vitesse
         self.direction = direction
+        self.couleur = (255, 0, 0)

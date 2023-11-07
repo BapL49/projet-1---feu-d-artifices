@@ -30,3 +30,5 @@ while loop: #Boucle d'événements
         if(event.type==pygame.QUIT or (event.type==pygame.KEYDOWN and event.key==pygame.K_ESCAPE)): #interrompt la boucle si nécessaire
             loop = False
 pygame.quit()
+
+#test

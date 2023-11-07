@@ -27,12 +27,28 @@ image = pygame.transform.scale(image, (fenetre_rect.width, fenetre_rect.height))
 fenetre.blit(image, (0, 0))
 pygame.display.flip()
 
+
 debut = time.time()
+
+
+
+circle_x = 755
+circle_y = 410
+circle_radius = 30 
+
+angle = 45
+
+sol = pygame.draw.rect(fenetre, NOIR, (0, 480, 800, 20))
+tourelle_square = pygame.draw.rect(fenetre,VERT, (730, 430, 50, 50))
+tourrelle_circle = pygame.draw.circle(fenetre, VERT, (circle_x, circle_y), circle_radius )
+
+
 
 while time.time() - debut < 5:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
+
 
 continuer = True
 while continuer :
@@ -40,13 +56,10 @@ while continuer :
         if event.type == QUIT:
             continuer = False
 
-
-    mouse_x, mouse_y = mouse.get_pos()
-    circle_x, circle_y = mouse_x, mouse_y
-
     fenetre.fill(BLANC)
-    tourrelle_circle = draw.circle(fenetre, VERT, (circle_x, circle_y), circle_radius )
-    print(mouse_x, mouse_y)
+    sol = pygame.draw.rect(fenetre, NOIR, (0, 480, 800, 20))
+    tourelle_square = pygame.draw.rect(fenetre,VERT, (730, 430, 50, 50))
+    tourrelle_circle = pygame.draw.circle(fenetre, VERT, (circle_x, circle_y), circle_radius )
 
     pygame.display.flip()
 

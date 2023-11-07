@@ -15,7 +15,6 @@ VERT = (0, 255, 0)
 fenetre = display.set_mode((800,500))
 display.set_caption("Feu d'artifice")
 
-circle_radius = 30 
 
 mouse.set_cursor(cursors.diamond)
 
@@ -36,13 +35,6 @@ circle_x = 755
 circle_y = 410
 circle_radius = 30 
 
-angle = 45
-
-sol = pygame.draw.rect(fenetre, NOIR, (0, 480, 800, 20))
-tourelle_square = pygame.draw.rect(fenetre,VERT, (730, 430, 50, 50))
-tourrelle_circle = pygame.draw.circle(fenetre, VERT, (circle_x, circle_y), circle_radius )
-
-
 
 while time.time() - debut < 5:
     for event in pygame.event.get():
@@ -60,6 +52,7 @@ while continuer :
     sol = pygame.draw.rect(fenetre, NOIR, (0, 480, 800, 20))
     tourelle_square = pygame.draw.rect(fenetre,VERT, (730, 430, 50, 50))
     tourrelle_circle = pygame.draw.circle(fenetre, VERT, (circle_x, circle_y), circle_radius )
+    tourrelle_canon = pygame.draw.line(fenetre, VERT, (circle_x - 50, circle_y - 35), (circle_x, circle_y), 10)
 
     pygame.display.flip()
 

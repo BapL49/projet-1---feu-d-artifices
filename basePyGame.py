@@ -51,4 +51,3 @@ while continuer :
 
 
 pygame.quit()
-

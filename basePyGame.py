@@ -1,6 +1,8 @@
 import pygame
+import time
 from pygame import *
 from pygame.locals import *
+
 
 pygame.init()
 

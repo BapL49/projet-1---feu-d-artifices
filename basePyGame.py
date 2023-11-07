@@ -17,6 +17,21 @@ circle_radius = 30
 
 mouse.set_cursor(cursors.diamond)
 
+fenetre_rect = fenetre.get_rect()
+image = pygame.image.load("image/Icone.jpg")
+image_rect = image.get_rect()
+image_rect.center = fenetre_rect.center
+image = pygame.transform.scale(image, (fenetre_rect.width, fenetre_rect.height))
+fenetre.blit(image, (0, 0))
+pygame.display.flip()
+
+debut = time.time()
+
+debut = time.time()
+while time.time() - debut < 5:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
 
 continuer = True
 while continuer :

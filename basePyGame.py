@@ -1,7 +1,7 @@
 import pygame
-import time
 from pygame import *
 from pygame.locals import *
+import time
 
 
 pygame.init()
@@ -29,7 +29,6 @@ pygame.display.flip()
 
 debut = time.time()
 
-debut = time.time()
 while time.time() - debut < 5:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:

@@ -1,34 +1,53 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Nov  8 22:22:25 2021
-
-@author: antoine
-"""
-
-
-# -*- coding: utf-8 -*-
 import pygame
-import time
+from pygame import *
 from pygame.locals import *
-pygame.display.init()
-ecran = pygame.display.set_mode((640, 480)) #Crée la fenêtre de tracé
-image = pygame.image.load("./nyanCat.png") #charge une image à partir d'un fichier
-ecran.blit(image, (0,0)) #Colle l'image en haut à gauche de la fenêtre de tracé (ici, l'ecran)
-pygame.display.flip() #L'affichage devient effectif : l'image est rendue visible.
-loop = True
 
-Nm1 = time.monotonic()
-X0 = 0
+pygame.init()
 
-while loop: #Boucle d'événements
-    if(time.monotonic()-Nm1) > 0.01:
-        Nm1 = time.monotonic()
-        ecran.blit(image, ((X0%500),0))
-        pygame.display.flip()
-        X0 = X0 + 1
-    for event in pygame.event.get(): #parcours de la liste des événements
-        if(event.type==pygame.QUIT or (event.type==pygame.KEYDOWN and event.key==pygame.K_ESCAPE)): #interrompt la boucle si nécessaire
-            loop = False
+BLANC = (255, 255, 255)
+NOIR = (0, 0, 0)
+BLEU = (0, 0, 255)
+ROUGE = (255, 0, 0)
+VERT = (0, 255, 0)
+
+fenetre = display.set_mode((800,500))
+display.set_caption("Feu d'artifice")
+
+circle_radius = 30 
+
+mouse.set_cursor(cursors.diamond)
+
+fenetre_rect = fenetre.get_rect()
+image = pygame.image.load("image/Icone.jpg")
+image_rect = image.get_rect()
+image_rect.center = fenetre_rect.center
+image = pygame.transform.scale(image, (fenetre_rect.width, fenetre_rect.height))
+fenetre.blit(image, (0, 0))
+pygame.display.flip()
+
+debut = time.time()
+
+debut = time.time()
+while time.time() - debut < 5:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+
+continuer = True
+while continuer :
+    for event in pygame.event.get():
+        if event.type == QUIT:
+            continuer = False
+
+
+    mouse_x, mouse_y = mouse.get_pos()
+    circle_x, circle_y = mouse_x, mouse_y
+
+    fenetre.fill(BLANC)
+    tourrelle_circle = draw.circle(fenetre, VERT, (circle_x, circle_y), circle_radius )
+    print(mouse_x, mouse_y)
+
+    pygame.display.flip()
+
+
 pygame.quit()
-
-#test

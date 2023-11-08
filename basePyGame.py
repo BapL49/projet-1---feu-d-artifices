@@ -34,7 +34,7 @@ def main():
 
 
     circle_x = 755
-    circle_y = 410
+    circle_y = 380
     circle_radius = 30 
 
 
@@ -51,8 +51,8 @@ def main():
                 continuer = False
 
         fenetre.fill(BLANC)
-        sol = pygame.draw.rect(fenetre, NOIR, (0, 480, 800, 20))
-        tourelle_square = pygame.draw.rect(fenetre,VERT, (730, 430, 50, 50))
+        sol = pygame.draw.rect(fenetre, NOIR, (0, 440, 800, 20))
+        tourelle_square = pygame.draw.rect(fenetre,VERT, (730, 400, 50, 50))
         tourrelle_circle = pygame.draw.circle(fenetre, VERT, (circle_x, circle_y), circle_radius )
         tourrelle_canon = pygame.draw.line(fenetre, VERT, (circle_x - 50, circle_y - 35), (circle_x, circle_y), 10)
 

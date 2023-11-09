@@ -2,7 +2,7 @@ import pygame
 from pygame import *
 from pygame.locals import *
 import time
-
+from Division import *
 
 def main():
 
@@ -56,8 +56,10 @@ def main():
         tourrelle_circle = pygame.draw.circle(fenetre, VERT, (circle_x, circle_y), circle_radius )
         tourrelle_canon = pygame.draw.line(fenetre, VERT, (circle_x - 50, circle_y - 35), (circle_x, circle_y), 10)
 
+        div = Division(100, 100, 10, fenetre)
         pygame.display.flip()
 
+        div.move()
 
     pygame.quit()
 

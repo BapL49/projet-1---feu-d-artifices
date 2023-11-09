@@ -46,12 +46,22 @@ def main():
             if event.type == pygame.QUIT:
                 pygame.quit()
 
+    #bouton pour fermer le jeu
+    quit_surface=pygame.image.load("image/redx.png")
+    quit_surface=pygame.transform.scale(quit_surface,(20,20))
+    quit_rect = quit_surface.get_rect()
+
     #Boucle Continue de Jeeu
     continuer = True
     while continuer :
         for event in pygame.event.get():
             if event.type == QUIT:
                 continuer = False
+            if event.type == MOUSEBUTTONUP:
+                mouse_x, mouse_y = pygame.mouse.get_pos()
+                if quit_rect.collidepoint(mouse_x,mouse_y):
+                    continuer=False
+
 
 
         fenetre.fill(BLANC)
@@ -60,6 +70,7 @@ def main():
         tourelle_square = pygame.draw.rect(fenetre,VERT, (730, 400, 50, 50))
         tourrelle_circle = pygame.draw.circle(fenetre, VERT, (circle_x, circle_y), circle_radius )
         tourrelle_canon = pygame.draw.line(fenetre, VERT, (circle_x - 50, circle_y - 35), (circle_x, circle_y), 10)
+        fenetre.blit(quit_surface,(0,0),)
 
         pygame.display.flip()
 

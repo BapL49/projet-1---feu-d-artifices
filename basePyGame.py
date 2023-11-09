@@ -38,9 +38,7 @@ circle_radius = 30
 
 angle = 45
 
-sol = pygame.draw.rect(fenetre, NOIR, (0, 480, 800, 20))
-tourelle_square = pygame.draw.rect(fenetre,VERT, (730, 430, 50, 50))
-tourrelle_circle = pygame.draw.circle(fenetre, VERT, (circle_x, circle_y), circle_radius )
+
 
 
 
@@ -50,18 +48,36 @@ while time.time() - debut < 5:
             pygame.quit()
 
 
+
+
 continuer = True
+#bouton pour fermer le jeu
+quit_surface=pygame.image.load("image/redx.png")
+quit_surface=pygame.transform.scale(quit_surface,(20,20))
+quit_rect = image.get_rect()
+
+
 while continuer :
     for event in pygame.event.get():
         if event.type == QUIT:
             continuer = False
+        if event.type == pygame.MOUSEBUTTONUP and collide ==True:
+            continuer = False
+    
+    souris= pygame.mouse.get_pos()
+    collide = quit_rect.collidepoint(souris)
 
     fenetre.fill(BLANC)
     sol = pygame.draw.rect(fenetre, NOIR, (0, 480, 800, 20))
     tourelle_square = pygame.draw.rect(fenetre,VERT, (730, 430, 50, 50))
     tourrelle_circle = pygame.draw.circle(fenetre, VERT, (circle_x, circle_y), circle_radius )
+    fenetre.blit(quit_surface,(0,0),)
+    
 
+    
     pygame.display.flip()
+
+    
 
 
 pygame.quit()

@@ -24,7 +24,7 @@ def main():
 
     #Création de l'image de départ
     fenetre_rect = fenetre.get_rect()
-    image = pygame.image.load("image/Icone.jpg")
+    image = pygame.image.load("projet-1---feu-d-artifices/image/Icone.jpg")
     image_rect = image.get_rect()
     image_rect.center = fenetre_rect.center
     image = pygame.transform.scale(image, (fenetre_rect.width, fenetre_rect.height))

@@ -4,6 +4,8 @@ L'utilisateur peut pouvoir :
 - Déplacer la souris dans la fenetre et cliquer
     - detecter les coordonnées du clique
 - Faire apparaitre un feu d'artifice à l'endroit du clique
+    - affiher un cercle a une position donnée
+    - déplacer un cercle sur une trajectoire donnée
 - 
 
 

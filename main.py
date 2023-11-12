@@ -47,7 +47,7 @@ def main():
                 pygame.quit()
 
     #bouton pour fermer le jeu
-    quit_surface=pygame.image.load("image/redx.png")
+    quit_surface=pygame.image.load("projet-1---feu-d-artifices/image/redx.png")
     quit_surface=pygame.transform.scale(quit_surface,(20,20))
     quit_rect = quit_surface.get_rect()
 

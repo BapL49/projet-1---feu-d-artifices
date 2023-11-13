@@ -3,6 +3,23 @@ from pygame import *
 from pygame.locals import *
 import time
 from Division import *
+import random
+
+list_fireworks = []
+fenetre = display.set_mode((800,500))
+
+def fireworkFunction():
+    nb_clique = 0
+    nb_division = 0
+
+    for x in range(8):
+        list_fireworks.append(Division(random.randint(0, 800), 0))
+
+    for firework in list_fireworks:
+        nb_division += 1
+        pygame.draw.circle(fenetre, firework.couleur, (firework.positionX, int(firework.positionY)), firework.circle_radius)
+        firework.move() 
+        pygame.display.flip()
 
 def main():
 
@@ -14,7 +31,6 @@ def main():
     ROUGE = (255, 0, 0)
     VERT = (0, 255, 0)
 
-    fenetre = display.set_mode((800,500))
     display.set_caption("Feu d'artifice")
 
 
@@ -56,11 +72,13 @@ def main():
         tourrelle_circle = pygame.draw.circle(fenetre, VERT, (circle_x, circle_y), circle_radius )
         tourrelle_canon = pygame.draw.line(fenetre, VERT, (circle_x - 50, circle_y - 35), (circle_x, circle_y), 10)
 
-        div = Division(100, 100, 10, fenetre)
         pygame.display.flip()
 
-        div.move()
-
+        fireworkFunction()
+        
+        
+        
+        pygame.time.Clock().tick(30)
     pygame.quit()
 
 

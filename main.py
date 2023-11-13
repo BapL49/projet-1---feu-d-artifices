@@ -2,6 +2,19 @@ import pygame
 from pygame import *
 from pygame.locals import *
 import time
+from Division import *
+import math
+
+list_fireworks = []
+fenetre = display.set_mode((800,500))
+
+def fireworkFunction(posY, posX):
+    centre_cercle = [posX, posY]
+    point_n = [centre_cercle[0] - 55, centre_cercle[1]]
+    for x in range(8):
+        list_fireworks.append(Division(point_n[0], point_n[1]))
+        point_n = [(point_n[0] - posX)* math.cos(2 * math.pi / 8) - (point_n[1] - posY) * math.sin(2 * math.pi / 8) + posX, (point_n[0] - posX)* math.sin(2 * math.pi / 8) + (point_n[1] - posY) * math.cos(2 * math.pi / 8) + posY]
+
 
 #Fonction Principale
 def main():
@@ -15,8 +28,7 @@ def main():
     ROUGE = (255, 0, 0)
     VERT = (0, 255, 0)
 
-    #Création de la fênetre en indiquant la taille et le nom
-    fenetre = display.set_mode((800,500))
+
     display.set_caption("Feu d'artifice")
 
     #Changement de la forme du curseur a l'intérieur de la fênetre
@@ -61,6 +73,10 @@ def main():
                 mouse_x, mouse_y = pygame.mouse.get_pos()
                 if quit_rect.collidepoint(mouse_x,mouse_y):
                     continuer=False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                # si clique gauche de la souris
+                if event.button == 1:
+                    fireworkFunction(event.pos[1], event.pos[0])
 
 
 
@@ -74,7 +90,16 @@ def main():
 
         pygame.display.flip()
 
+        for firework in list_fireworks:
+            pygame.draw.circle(fenetre, firework.couleur, (int(firework.positionX), int(firework.positionY)), firework.circle_radius)
+            firework.move() 
 
+            if firework.positionY >= 450:
+                list_fireworks.remove(firework)
+        
+        pygame.display.flip()
+        
+        pygame.time.Clock().tick(30)
     pygame.quit()
 
 

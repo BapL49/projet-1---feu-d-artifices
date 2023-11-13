@@ -3,14 +3,17 @@ from pygame import *
 from pygame.locals import *
 import time
 from Division import *
-import random
+import math
 
 list_fireworks = []
 fenetre = display.set_mode((800,500))
 
 def fireworkFunction(posY, posX):
+    centre_cercle = [posX, posY]
+    point_n = [centre_cercle[0] - 55, centre_cercle[1]]
     for x in range(8):
-        list_fireworks.append(Division(posX, posY))
+        list_fireworks.append(Division(point_n[0], point_n[1]))
+        point_n = [(point_n[0] - posX)* math.cos(2 * math.pi / 8) - (point_n[1] - posY) * math.sin(2 * math.pi / 8) + posX, (point_n[0] - posX)* math.sin(2 * math.pi / 8) + (point_n[1] - posY) * math.cos(2 * math.pi / 8) + posY]
 
 
 

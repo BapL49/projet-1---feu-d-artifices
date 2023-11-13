@@ -8,18 +8,14 @@ import random
 list_fireworks = []
 fenetre = display.set_mode((800,500))
 
-def fireworkFunction():
+def fireworkFunction(posY, posX):
     nb_clique = 0
     nb_division = 0
 
     for x in range(8):
-        list_fireworks.append(Division(random.randint(0, 800), 0))
+        list_fireworks.append(Division(posX, posY))
 
-    for firework in list_fireworks:
-        nb_division += 1
-        pygame.draw.circle(fenetre, firework.couleur, (firework.positionX, int(firework.positionY)), firework.circle_radius)
-        firework.move() 
-        pygame.display.flip()
+
 
 def main():
 
@@ -48,7 +44,6 @@ def main():
     debut = time.time()
 
 
-
     circle_x = 755
     circle_y = 380
     circle_radius = 30 
@@ -65,6 +60,11 @@ def main():
         for event in pygame.event.get():
             if event.type == QUIT:
                 continuer = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                # si clique gauche de la souris
+                if event.button == 1:
+                    print(event.pos)
+                    fireworkFunction(event.pos[1], event.pos[0])
 
         fenetre.fill(BLANC)
         sol = pygame.draw.rect(fenetre, NOIR, (0, 440, 800, 20))
@@ -74,9 +74,14 @@ def main():
 
         pygame.display.flip()
 
-        fireworkFunction()
+        for firework in list_fireworks:
+            pygame.draw.circle(fenetre, firework.couleur, (int(firework.positionX), int(firework.positionY)), firework.circle_radius)
+            firework.move() 
+
+            if firework.positionY >= 600:
+                list_fireworks.remove(firework)
         
-        
+        pygame.display.flip()
         
         pygame.time.Clock().tick(30)
     pygame.quit()

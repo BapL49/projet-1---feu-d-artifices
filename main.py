@@ -5,10 +5,10 @@ import time
 from Division import *
 import math
 
-list_fireworks = []
+list_fireworks = [] #liste contenant les instances de la classe division
 fenetre = display.set_mode((800,500))
 
-def fireworkFunction(posY, posX):
+def fireworkFunction(posY, posX): # crée les instances de la classe division
     centre_cercle = [posX, posY]
     point_n = [centre_cercle[0] - 55, centre_cercle[1]]
     for x in range(8):
@@ -69,14 +69,16 @@ def main():
         for event in pygame.event.get():
             if event.type == QUIT:
                 continuer = False
+            # si on clique sur la croix
             if event.type == MOUSEBUTTONUP:
                 mouse_x, mouse_y = pygame.mouse.get_pos()
                 if quit_rect.collidepoint(mouse_x,mouse_y):
                     continuer=False
+            # si on clique dans la fenetre 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 # si clique gauche de la souris
                 if event.button == 1:
-                    fireworkFunction(event.pos[1], event.pos[0])
+                    fireworkFunction(event.pos[1], event.pos[0]) 
 
 
 
@@ -90,10 +92,12 @@ def main():
 
         pygame.display.flip()
 
-        for firework in list_fireworks:
+        for firework in list_fireworks: 
+            # dessine des cercles avec les informations de chaque instance de classe dans list_fireworks
             pygame.draw.circle(fenetre, firework.couleur, (int(firework.positionX), int(firework.positionY)), firework.circle_radius)
-            firework.move() 
-
+            firework.move() # déplacer la division
+            
+            # supprime la divison si elle se trouve à 450 pixels ou plus du haut de la fenetre
             if firework.positionY >= 450:
                 list_fireworks.remove(firework)
         

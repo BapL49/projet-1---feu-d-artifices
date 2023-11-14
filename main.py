@@ -47,6 +47,10 @@ def main():
     debut = time.time()
 
 
+    # position Y du sol
+    limiteSol = 440
+
+
     #Valeur du cercle de la tourelle
     circle_x = 755
     circle_y = 380
@@ -78,13 +82,14 @@ def main():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 # si clique gauche de la souris
                 if event.button == 1:
-                    fireworkFunction(event.pos[1], event.pos[0]) 
+                    if pygame.mouse.get_pos()[1] < limiteSol:
+                        fireworkFunction(event.pos[1], event.pos[0]) 
 
 
 
         fenetre.fill(BLANC)
         #Dessin du sol et de la tourelle
-        sol = pygame.draw.rect(fenetre, NOIR, (0, 440, 800, 20))
+        sol = pygame.draw.rect(fenetre, NOIR, (0, limiteSol, 800, 20))
         tourelle_square = pygame.draw.rect(fenetre,VERT, (730, 400, 50, 50))
         tourrelle_circle = pygame.draw.circle(fenetre, VERT, (circle_x, circle_y), circle_radius )
         tourrelle_canon = pygame.draw.line(fenetre, VERT, (circle_x - 50, circle_y - 35), (circle_x, circle_y), 10)
@@ -98,7 +103,7 @@ def main():
             firework.move() # déplacer la division
             
             # supprime la divison si elle se trouve à 450 pixels ou plus du haut de la fenetre
-            if firework.positionY >= 450:
+            if firework.positionY >= limiteSol:
                 list_fireworks.remove(firework)
         
         pygame.display.flip()

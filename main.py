@@ -13,7 +13,7 @@ def fireworkFunction(posY, posX): # crée les instances de la classe division
     point_n = [centre_cercle[0] - 55, centre_cercle[1]]
     for x in range(8):
         list_fireworks.append(Division(point_n[0], point_n[1]))
-        point_n = [(point_n[0] - posX)* math.cos(2 * math.pi / 8) - (point_n[1] - posY) * math.sin(2 * math.pi / 8) + posX, (point_n[0] - posX)* math.sin(2 * math.pi / 8) + (point_n[1] - posY) * math.cos(2 * math.pi / 8) + posY]
+        point_n = [(point_n[0] - posX) * math.cos(2 * math.pi / 8) - (point_n[1] - posY) * math.sin(2 * math.pi / 8) + posX, (point_n[0] - posX) * math.sin(2 * math.pi / 8) + (point_n[1] - posY) * math.cos(2 * math.pi / 8) + posY]
 
 
 #Fonction Principale

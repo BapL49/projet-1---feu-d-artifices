@@ -14,9 +14,9 @@ class Division:
 
 
     def move(self):
+        self.positionY += ((0.5 * self.accélération)**2) + self.vitesse
+        self.positionX += ((0.5 * self.accélération)**2) + self.direction
         self.vitesse += self.accélération
-        self.positionY += self.vitesse
-        self.positionX += self.direction
 
 
 

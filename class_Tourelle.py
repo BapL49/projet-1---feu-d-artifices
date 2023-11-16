@@ -17,17 +17,14 @@ class Tourelle():
         self.fenetre = fenetre #doit tojours etre la fenetre
         self.fenetre_rect = fenetre.get_rect()
         self.position = position #position de debut du tir
-        self.list_fireworks=self.list_fireworks#liste des instances de la class division
+        self.list_fireworks = self.list_fireworks#liste des instances de la class division
         self.delai=0.1
         
     #implementer tri 
     
     def tir(self):
         #verifier que il y a de divisions dans la fenetre
-        if self.fenetre_rect.colliderect(firework):
-            condition=True
-        else:
-            condition=False
+        condition = self.fenetre_rect.colliderect(firework)
 
         for firework in self.list_fireworks:
             

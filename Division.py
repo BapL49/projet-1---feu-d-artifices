@@ -1,4 +1,6 @@
 import pygame
+import math
+import time
 from random import randint
 
 
@@ -11,12 +13,12 @@ class Division:
         self.direction = randint(-5, 5) # direction x de la division
         self.couleur = (255, 0, 0)
         self.circle_radius = randint(5, 15)
+        self.temps = time.time()
 
 
     def move(self):
-        self.positionY += ((0.5 * self.accélération)**2) + self.vitesse
-        self.positionX += ((0.5 * self.accélération)**2) + self.direction
-        self.vitesse += self.accélération
+        self.positionY = self.accélération * self.temps**2 + self.vitesse * self.temps + self.positionY
+        
 
 
 

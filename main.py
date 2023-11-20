@@ -3,6 +3,7 @@ from pygame import *
 from pygame.locals import *
 import time
 from Division import *
+from class_Tourelle import *
 import math
 
 list_fireworks = [] #liste contenant les instances de la classe division
@@ -15,6 +16,8 @@ def fireworkFunction(posY, posX): # crée les instances de la classe division
         list_fireworks.append(Division(point_n[0], point_n[1]))
         point_n = [(point_n[0] - posX)* math.cos(2 * math.pi / 8) - (point_n[1] - posY) * math.sin(2 * math.pi / 8) + posX, (point_n[0] - posX)* math.sin(2 * math.pi / 8) + (point_n[1] - posY) * math.cos(2 * math.pi / 8) + posY]
 
+#instance de la classe tourelle
+turret = Tourelle(fenetre,(704,346),list_fireworks)
 
 #Fonction Principale
 def main():
@@ -105,7 +108,6 @@ def main():
             # supprime la divison si elle se trouve à 450 pixels ou plus du haut de la fenetre
             if firework.positionY >= limiteSol:
                 list_fireworks.remove(firework)
-        
         pygame.display.flip()
         
         pygame.time.Clock().tick(30)

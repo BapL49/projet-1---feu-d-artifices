@@ -1,7 +1,7 @@
 import pygame
 from pygame import *
 from pygame.locals import *
-from time import sleep
+import time
 from random import random
 #Une tourelle placée au sol à droite doit tirer sur les divisions. Elle le fait à raison d’une salve de 3
 #tirs par seconde sur les 3 plus proches cibles par ordre de priorité en fonction de la distance.
@@ -17,30 +17,42 @@ class Tourelle():
         self.fenetre = fenetre #doit tojours etre la fenetre
         self.fenetre_rect = fenetre.get_rect()
         self.position = position #position de debut du tir
-        self.list_fireworks = self.list_fireworks#liste des instances de la class division
+        self.list_fireworks = list_fireworks#liste des instances de la class division
         self.delai=0.1
+
+        list_firework_rect=[]
+        
+
+        global points#variable global des points
+        points = 0 
+
         
     #implementer tri 
     
     def tir(self):
         #verifier que il y a de divisions dans la fenetre
-        condition = self.fenetre_rect.colliderect(firework)
-
-        for firework in self.list_fireworks:
+        if self.list_fireworks == []:
+            pass
+        else:
             
-            while condition:
+            for firework in self.list_fireworks:
+                firework_rect = firework.get_rect()
+                condition = self.fenetre_rect.colliderect(firework_rect)
                 
-                for i in range(3):
+                while condition:
                     
-                    tir = pygame.draw.line(self.fenetre,ROUGE,self.position,(int(firework.positionX), int(firework.positionY)))
+                    for i in range(3):
+                        
+                        tir = pygame.draw.line(self.fenetre,ROUGE,self.position,(int(firework.positionX), int(firework.positionY)))
 
-                    if tir.colliderect(self.cible):
-                        pygame.draw.circle(self.fenetre, BLANC , (int(firework.positionX), int(firework.positionY)), firework.circle_radius)
-                
-                    sleep(0.1)
-                    pygame.draw.line(self.fenetre,BLANC,self.position,(int(firework.positionX), int(firework.positionY)))
-                #3 tirs par seg
-                sleep(3.0)
+                        if tir.colliderect(firework_rect):
+                            pygame.draw.circle(self.fenetre, BLANC , (int(firework.positionX), int(firework.positionY)), firework.circle_radius)
+                            points+=1
+
+                        time.sleep(0.1)
+                        pygame.draw.line(self.fenetre,BLANC,self.position,(int(firework.positionX), int(firework.positionY)))
+                    #3 tirs par seg
+                    time.sleep(3.0)
 
 
 

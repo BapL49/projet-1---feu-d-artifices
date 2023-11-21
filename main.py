@@ -106,9 +106,9 @@ def main():
             # dessine des cercles avec les informations de chaque instance de classe dans list_fireworks
             pygame.draw.circle(fenetre, firework.couleur, (int(firework.positionX), int(firework.positionY)), firework.circle_radius)
             firework.move() # déplacer la division
-            
+            turret.tir((705,345),firework)
             # supprime la divison si elle se trouve à 450 pixels ou plus du haut de la fenetre
-            if firework.positionY >= limiteSol:
+            if firework.positionY >= limiteSol or collition==True:
                 list_fireworks.remove(firework)
         pygame.display.flip()
         

@@ -16,8 +16,8 @@ class Tourelle():
       
         self.fenetre = fenetre #doit tojours etre la fenetre
         self.fenetre_rect = fenetre.get_rect()
-        global points#variable global des points
-        points = 0 
+        self.collition=False
+      
 
         
     #implementer tri 
@@ -26,22 +26,20 @@ class Tourelle():
         self.position=position_tir
         self.positionX = firework.positionX
         self.positionY = firework.positionY
-        self.rect= firework.rect
+        self.rect= firework.circle
         self.circle_radius = firework.circle_radius
-        global collition
-        collition=False
-                    
+                 
         for i in range(3):
-
             tir = pygame.draw.line(self.fenetre,ROUGE,self.position,(self.positionX, self.positionY))
+            pygame.display.update(tir)
 
             if tir.colliderect(self.rect):#collision avec la divition 
-                pygame.draw.circle(self.fenetre, BLANC , (self.positionX, self.positionY), self.circle_radius)
-                points+=1
-                collition=True
 
+                self.collition=True
+
+            
             time.sleep(0.1)
-            pygame.draw.line(self.fenetre,BLANC,self.position,(self.positionX,self.positionY))
+            pygame.display.update(pygame.draw.line(self.fenetre,BLANC,self.position,(self.positionX,self.positionY)))
             #3 tirs par seg
         time.sleep(1.0)
 

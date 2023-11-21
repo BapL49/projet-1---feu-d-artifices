@@ -12,6 +12,9 @@ list_fireworks = [] #liste contenant les instances de la classe division
 limiteSol = 440
 fenetre = display.set_mode((800,500))
 
+turret = Tourelle(fenetre)#instance de la classe tourelle
+
+
 def fireworkFunction(posY, posX): # crée les instances de la classe division
     centre_cercle = [posX, posY]
     point_n = [centre_cercle[0] - 55, centre_cercle[1]]
@@ -28,15 +31,14 @@ def gererFirework():
     for firework in list_fireworks: 
         # deltaTime in seconds.
         firework.update() # actualise la position des division
-
+        turret.tir((705,345),firework)
 
         # supprime la divison si elle se trouve au dessus de limiteSol
-        if firework.positionY >= limiteSol:
+        if firework.positionY >= limiteSol or turret.collition==True:
             list_fireworks.remove(firework)
 
 
-#instance de la classe tourelle
-turret = Tourelle(fenetre)
+
 
 
 #Fonction Principale

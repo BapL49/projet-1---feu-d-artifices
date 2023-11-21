@@ -26,15 +26,19 @@ class Tourelle():
         self.position=position_tir
         self.positionX = firework.positionX
         self.positionY = firework.positionY
+        self.rect= firework.rect
         self.circle_radius = firework.circle_radius
+        global collition
+        collition=False
                     
         for i in range(3):
 
             tir = pygame.draw.line(self.fenetre,ROUGE,self.position,(self.positionX, self.positionY))
 
-            if tir.colliderect():#collision avec la divition 
-                pygame.draw.circle(self.fenetre, BLANC , (self.positionX, self.positionY), self.circle_Radius)
+            if tir.colliderect(self.rect):#collision avec la divition 
+                pygame.draw.circle(self.fenetre, BLANC , (self.positionX, self.positionY), self.circle_radius)
                 points+=1
+                collition=True
 
             time.sleep(0.1)
             pygame.draw.line(self.fenetre,BLANC,self.position,(self.positionX,self.positionY))

@@ -12,47 +12,34 @@ ROUGE = (255, 0, 0)
 BLANC = (255, 255, 255)
 class Tourelle():
 
-    def __init__(self,fenetre,position,list_fireworks ):
+    def __init__(self,fenetre):
       
         self.fenetre = fenetre #doit tojours etre la fenetre
         self.fenetre_rect = fenetre.get_rect()
-        self.position = position #position de debut du tir
-        self.list_fireworks = list_fireworks#liste des instances de la class division
-        self.delai=0.1
-
-        list_firework_rect=[]
-        
-
         global points#variable global des points
         points = 0 
 
         
     #implementer tri 
     
-    def tir(self):
-        #verifier que il y a de divisions dans la fenetre
-        if self.list_fireworks == []:
-            pass
-        else:
-            
-            for firework in self.list_fireworks:
-                firework_rect = firework.get_rect()
-                condition = self.fenetre_rect.colliderect(firework_rect)
-                
-                while condition:
+    def tir(self,position_tir, firework):
+        self.position=position_tir
+        self.positionX = firework.positionX
+        self.positionY = firework.positionY
+        self.circle_radius = firework.circle_radius
                     
-                    for i in range(3):
-                        
-                        tir = pygame.draw.line(self.fenetre,ROUGE,self.position,(int(firework.positionX), int(firework.positionY)))
+        for i in range(3):
 
-                        if tir.colliderect(firework_rect):
-                            pygame.draw.circle(self.fenetre, BLANC , (int(firework.positionX), int(firework.positionY)), firework.circle_radius)
-                            points+=1
+            tir = pygame.draw.line(self.fenetre,ROUGE,self.position,(self.positionX, self.positionY))
 
-                        time.sleep(0.1)
-                        pygame.draw.line(self.fenetre,BLANC,self.position,(int(firework.positionX), int(firework.positionY)))
-                    #3 tirs par seg
-                    time.sleep(3.0)
+            if tir.colliderect():#collision avec la divition 
+                pygame.draw.circle(self.fenetre, BLANC , (self.positionX, self.positionY), self.circle_Radius)
+                points+=1
+
+            time.sleep(0.1)
+            pygame.draw.line(self.fenetre,BLANC,self.position,(self.positionX,self.positionY))
+            #3 tirs par seg
+        time.sleep(1.0)
 
 
 

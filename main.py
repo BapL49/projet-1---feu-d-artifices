@@ -18,7 +18,7 @@ def fireworkFunction(posY, posX): # crée les instances de la classe division
         point_n = [(point_n[0] - posX)* math.cos(2 * math.pi / 8) - (point_n[1] - posY) * math.sin(2 * math.pi / 8) + posX, (point_n[0] - posX)* math.sin(2 * math.pi / 8) + (point_n[1] - posY) * math.cos(2 * math.pi / 8) + posY]
 
 #instance de la classe tourelle
-turret = Tourelle(fenetre,(704,346),list_fireworks)
+turret = Tourelle(fenetre)
 
 #Fonction Principale
 def main():
@@ -40,7 +40,7 @@ def main():
 
     #Création de l'image de départ
     fenetre_rect = fenetre.get_rect()
-    image = pygame.image.load("projet-1---feu-d-artifices/image/Icone.jpg")
+    image = pygame.image.load("image/Icone.jpg")
     image_rect = image.get_rect()
     image_rect.center = fenetre_rect.center
     image = pygame.transform.scale(image, (fenetre_rect.width, fenetre_rect.height))
@@ -67,7 +67,7 @@ def main():
                 pygame.quit()
 
     #bouton pour fermer le jeu
-    quit_surface=pygame.image.load("projet-1---feu-d-artifices/image/redx.png")
+    quit_surface=pygame.image.load("image/redx.png")
     quit_surface=pygame.transform.scale(quit_surface,(20,20))
     quit_rect = quit_surface.get_rect()
 

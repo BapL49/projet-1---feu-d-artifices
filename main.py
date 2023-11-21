@@ -3,6 +3,8 @@ from pygame import *
 from pygame.locals import *
 import time
 from Division import *
+from Fleurs import *
+from class_Tourelle import *
 import math
 
 list_fireworks = [] #liste contenant les instances de la classe division
@@ -31,6 +33,11 @@ def gererFirework():
         # supprime la divison si elle se trouve au dessus de limiteSol
         if firework.positionY >= limiteSol:
             list_fireworks.remove(firework)
+
+
+#instance de la classe tourelle
+turret = Tourelle(fenetre)
+
 
 #Fonction Principale
 def main():
@@ -79,7 +86,7 @@ def main():
     quit_surface=pygame.transform.scale(quit_surface,(20,20))
     quit_rect = quit_surface.get_rect()
 
-    #Boucle Continue de Jeeu
+    #Boucle Continue de Jeu
     continuer = True
     while continuer :
         for event in pygame.event.get():
@@ -98,6 +105,7 @@ def main():
                         fireworkFunction(event.pos[1], event.pos[0]) 
 
 
+        
 
         fenetre.fill(BLANC)
         #Dessin du sol et de la tourelle
@@ -109,6 +117,8 @@ def main():
 
         pygame.display.flip()
 
+
+   
         # permet d'actualiser la position des divisions et de les supprimer
         gererFirework()
     

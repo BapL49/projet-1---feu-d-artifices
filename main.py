@@ -8,17 +8,36 @@ from class_Tourelle import *
 import math
 
 list_fireworks = [] #liste contenant les instances de la classe division
+# position Y du sol
+limiteSol = 440
 fenetre = display.set_mode((800,500))
 
 def fireworkFunction(posY, posX): # crée les instances de la classe division
     centre_cercle = [posX, posY]
     point_n = [centre_cercle[0] - 55, centre_cercle[1]]
     for x in range(8):
-        list_fireworks.append(Division(point_n[0], point_n[1]))
-        point_n = [(point_n[0] - posX)* math.cos(2 * math.pi / 8) - (point_n[1] - posY) * math.sin(2 * math.pi / 8) + posX, (point_n[0] - posX)* math.sin(2 * math.pi / 8) + (point_n[1] - posY) * math.cos(2 * math.pi / 8) + posY]
+        #arc tangente des points
+        angle = math.atan2(point_n[1] - centre_cercle[1], point_n[0] - centre_cercle[0])
+        # ajout des instances à la liste list_fireworks
+        list_fireworks.append(Division(point_n[0], point_n[1], angle, fenetre))
+        # calcul du nouveau point
+        point_n = [(point_n[0] - posX) * math.cos(2 * math.pi / 8) - (point_n[1] - posY) * math.sin(2 * math.pi / 8) + posX, (point_n[0] - posX) * math.sin(2 * math.pi / 8) + (point_n[1] - posY) * math.cos(2 * math.pi / 8) + posY]
+
+def gererFirework():
+
+    for firework in list_fireworks: 
+        # deltaTime in seconds.
+        firework.update() # actualise la position des division
+
+
+        # supprime la divison si elle se trouve au dessus de limiteSol
+        if firework.positionY >= limiteSol:
+            list_fireworks.remove(firework)
+
 
 #instance de la classe tourelle
 turret = Tourelle(fenetre)
+
 
 #Fonction Principale
 def main():
@@ -49,10 +68,6 @@ def main():
 
 
     debut = time.time()
-
-
-    # position Y du sol
-    limiteSol = 440
 
 
     #Valeur du cercle de la tourelle
@@ -102,16 +117,12 @@ def main():
 
         pygame.display.flip()
 
-        for firework in list_fireworks: 
-            # dessine des cercles avec les informations de chaque instance de classe dans list_fireworks
-            pygame.draw.circle(fenetre, firework.couleur, (int(firework.positionX), int(firework.positionY)), firework.circle_radius)
-            firework.move() # déplacer la division
-            
-            # supprime la divison si elle se trouve à 450 pixels ou plus du haut de la fenetre
-            if firework.positionY >= limiteSol:
-                list_fireworks.remove(firework)
-        pygame.display.flip()
-        
+
+   
+        # permet d'actualiser la position des divisions et de les supprimer
+        gererFirework()
+    
+
         pygame.time.Clock().tick(30)
     pygame.quit()
 

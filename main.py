@@ -3,6 +3,7 @@ from pygame import *
 from pygame.locals import *
 import time
 from Division import *
+from Fleurs import *
 from class_Tourelle import *
 import math
 
@@ -39,7 +40,7 @@ def main():
 
     #Création de l'image de départ
     fenetre_rect = fenetre.get_rect()
-    image = pygame.image.load("image/Icone.jpg")
+    image = pygame.image.load("projet-1---feu-d-artifices/image/Icone.jpg")
     image_rect = image.get_rect()
     image_rect.center = fenetre_rect.center
     image = pygame.transform.scale(image, (fenetre_rect.width, fenetre_rect.height))
@@ -66,11 +67,11 @@ def main():
                 pygame.quit()
 
     #bouton pour fermer le jeu
-    quit_surface=pygame.image.load("image/redx.png")
+    quit_surface=pygame.image.load("projet-1---feu-d-artifices/image/redx.png")
     quit_surface=pygame.transform.scale(quit_surface,(20,20))
     quit_rect = quit_surface.get_rect()
 
-    #Boucle Continue de Jeeu
+    #Boucle Continue de Jeu
     continuer = True
     while continuer :
         for event in pygame.event.get():
@@ -89,6 +90,7 @@ def main():
                         fireworkFunction(event.pos[1], event.pos[0]) 
 
 
+        
 
         fenetre.fill(BLANC)
         #Dessin du sol et de la tourelle

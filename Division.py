@@ -8,8 +8,9 @@ class Division:
         self.positionX = positionX
         self.positionY = positionY
         self.direction = direction # angle (en radian) vers lequel se dirige la division
-        self.vitesseInitialeY = 6 * math.sin(self.direction) * 6
-        self.vitesse = randint(8, 22)
+        self.vitesseInitialeBase = 6 # constante vitesse de départ
+        self.vitesseInitialeY = self.vitesseInitialeBase * math.sin(self.direction) #vitesse de départ Y
+        self.vitesse = randint(8, 22) # vitesse 
         self.acceleration = 9.8
         self.couleur = (255, 0, 0)
         self.circle_radius = randint(5, 15)
@@ -24,13 +25,13 @@ class Division:
     def move(self):
         dt = 0.1
         self.positionY += 0.5 * self.acceleration * dt**2 + self.vitesseInitialeY * dt
-        self.positionX += 0.5 * self.acceleration * dt**2 + self.vitesse * 5 * math.cos(self.direction) * dt
+        self.positionX += 0.5 * self.acceleration * dt**2 + self.vitesse * self.vitesseInitialeBase * math.cos(self.direction) * dt
         self.circle = pygame.draw.circle(self.fenetre, self.couleur, (int(self.positionX), int(self.positionY)), self.circle_radius)
         self.vitesseInitialeY += self.vitesse
 
 
     def update(self):
-        self.move()
-        pygame.display.update(self.circle)
+        self.move() # calcule de la nouvelle position de la division
+        pygame.display.update(self.circle) # actualisation de l'affichage de la division
 
 

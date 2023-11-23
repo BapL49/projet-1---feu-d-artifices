@@ -8,8 +8,7 @@ from class_Tourelle import *
 import math
 
 list_fireworks = [] #liste contenant les instances de la classe division
-# position Y du sol
-limiteSol = 440
+limiteSol = 440 # position Y du sol
 fenetre = display.set_mode((800,500))
 
 turret = Tourelle(fenetre)#instance de la classe tourelle
@@ -27,17 +26,14 @@ def fireworkFunction(posY, posX): # crée les instances de la classe division
         point_n = [(point_n[0] - posX) * math.cos(2 * math.pi / 8) - (point_n[1] - posY) * math.sin(2 * math.pi / 8) + posX, (point_n[0] - posX) * math.sin(2 * math.pi / 8) + (point_n[1] - posY) * math.cos(2 * math.pi / 8) + posY]
 
 def gererFirework():
-
     for firework in list_fireworks: 
         # deltaTime in seconds.
         firework.update() # actualise la position des division
-        turret.tir((705,345),firework)
+        # turret.tir((705,345),firework)
 
         # supprime la divison si elle se trouve au dessus de limiteSol
         if firework.positionY >= limiteSol or turret.collition==True:
             list_fireworks.remove(firework)
-
-
 
 
 
@@ -122,7 +118,8 @@ def main():
 
    
         # permet d'actualiser la position des divisions et de les supprimer
-        gererFirework()
+        if len(list_fireworks) > 0:
+            gererFirework()
     
 
         pygame.time.Clock().tick(30)

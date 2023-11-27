@@ -49,7 +49,7 @@ def gererFirework():
             points += 10
         
         if turret.collition == True :
-            list_fireworks(firework)
+            list_fireworks.remove(firework)
 
 
 

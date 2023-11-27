@@ -7,9 +7,12 @@ from Fleurs import *
 from class_Tourelle import *
 import math
 
+HAUTEUR_FENETRE = 600
+LARGEUR_FENETRE = 1000
+
 list_fireworks = [] #liste contenant les instances de la classe division
-limiteSol = 440 # position Y du sol
-fenetre = display.set_mode((800,500))
+limiteSol = HAUTEUR_FENETRE - 60 # position Y du sol
+fenetre = display.set_mode((LARGEUR_FENETRE, HAUTEUR_FENETRE))
 
 turret = Tourelle(fenetre)#instance de la classe tourelle
 
@@ -25,6 +28,11 @@ def fireworkFunction(posY, posX): # crée les instances de la classe division
         # calcul du nouveau point
         point_n = [(point_n[0] - posX) * math.cos(2 * math.pi / 8) - (point_n[1] - posY) * math.sin(2 * math.pi / 8) + posX, (point_n[0] - posX) * math.sin(2 * math.pi / 8) + (point_n[1] - posY) * math.cos(2 * math.pi / 8) + posY]
 
+
+
+
+
+
 def gererFirework():
     for firework in list_fireworks: 
         # deltaTime in seconds.
@@ -34,6 +42,7 @@ def gererFirework():
         # supprime la divison si elle se trouve au dessus de limiteSol
         if firework.positionY >= limiteSol or turret.collition==True:
             list_fireworks.remove(firework)
+
 
 
 
@@ -107,10 +116,10 @@ def main():
 
         fenetre.fill(BLANC)
         #Dessin du sol et de la tourelle
-        sol = pygame.draw.rect(fenetre, NOIR, (0, limiteSol, 800, 20))
-        tourelle_square = pygame.draw.rect(fenetre,VERT, (730, 400, 50, 50))
-        tourrelle_circle = pygame.draw.circle(fenetre, VERT, (circle_x, circle_y), circle_radius )
-        tourrelle_canon = pygame.draw.line(fenetre, VERT, (circle_x - 50, circle_y - 35), (circle_x, circle_y), 10)
+        sol = pygame.draw.rect(fenetre, NOIR, (0, limiteSol, LARGEUR_FENETRE, 20))
+        tourelle_square = pygame.draw.rect(fenetre,VERT, (LARGEUR_FENETRE - 70, HAUTEUR_FENETRE - 100, 50, 50))
+        tourrelle_circle = pygame.draw.circle(fenetre, VERT, (LARGEUR_FENETRE - 45 , HAUTEUR_FENETRE - 110 ), circle_radius )
+        tourrelle_canon = pygame.draw.line(fenetre, VERT, (LARGEUR_FENETRE - 95, HAUTEUR_FENETRE - 145), (LARGEUR_FENETRE - 45, HAUTEUR_FENETRE - 110), 10)
         fenetre.blit(quit_surface,(0,0),)
 
         pygame.display.flip()

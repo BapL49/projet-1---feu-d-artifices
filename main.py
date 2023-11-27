@@ -30,7 +30,8 @@ def gererFirework():
         # deltaTime in seconds.
         firework.update() # actualise la position des division
         # turret.tir((705,345),firework)
-
+        global current_firework
+        current_firework=firework
         # supprime la divison si elle se trouve au dessus de limiteSol
         if firework.positionY >= limiteSol or turret.collition==True:
             list_fireworks.remove(firework)
@@ -100,7 +101,8 @@ def main():
                 # si clique gauche de la souris
                 if event.button == 1:
                     if pygame.mouse.get_pos()[1] < limiteSol:
-                        fireworkFunction(event.pos[1], event.pos[0]) 
+                        fireworkFunction(event.pos[1], event.pos[0])
+                         
 
 
         
@@ -120,8 +122,10 @@ def main():
         # permet d'actualiser la position des divisions et de les supprimer
         if len(list_fireworks) > 0:
             gererFirework()
+            turret.tir_vers_firework((705,345),current_firework)
     
-
+        #turret.tir_vers_souris((705,345))
+        
         pygame.time.Clock().tick(30)
     pygame.quit()
 

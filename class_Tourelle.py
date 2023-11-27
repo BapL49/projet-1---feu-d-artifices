@@ -25,32 +25,49 @@ class Tourelle():
         
     #implementer tri 
     
-    def tir(self,position_tir, firework):
+    def tir_vers_firework(self,position_tir, firework):
        
         temps_actuel=pygame.time.get_ticks()
-                 
+        self.collition=False    
         if temps_actuel - self.temps_tir > self.delai_tir: # attendre 333 milisecondes entre chaque tir
-
+            
             self.position=position_tir
             self.positionX = firework.positionX
             self.positionY = firework.positionY
             self.rect= firework.circle
-            self.circle_radius = firework.circle_radius
+            
 
             tir = pygame.draw.line(self.fenetre,ROUGE,self.position,(self.positionX, self.positionY))
-            pygame.display.update(tir)
+            
 
             if tir.colliderect(self.rect):#collision avec la divition 
 
                 self.collition=True
 
             if temps_actuel -self.temps_derniere_tir > self.duree_tir:#attendre 0.1 secondes entre chaque tir
-                pass
-                #p  ygame.display.update(pygame.draw.line(self.fenetre,BLANC,self.position,(self.positionX,self.positionY)))
+                pygame.display.update(tir)
 
             self.temps_tir=temps_actuel
             self.temps_derniere_tir=temps_actuel
 
+    def tir_vers_souris(self,position_tir):
+        
+        temps_actuel=pygame.time.get_ticks()
+                 
+        if temps_actuel - self.temps_tir > self.delai_tir: # attendre 333 milisecondes entre chaque tir
+            
+            self.position=position_tir
+            self.coordinates=pygame.mouse.get_pos()
+       
+            tir = pygame.draw.line(self.fenetre,ROUGE,self.position,(self.coordinates))
+            
+        
+            if temps_actuel -self.temps_derniere_tir > self.duree_tir:#attendre 0.1 secondes entre chaque tir
+                pygame.display.update(tir)
+                
+
+            self.temps_tir=temps_actuel
+            self.temps_derniere_tir=temps_actuel
 
     
     

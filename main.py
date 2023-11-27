@@ -69,7 +69,7 @@ def main():
     pygame.display.flip()
 
 
-    debut = time.time()
+    debut = pygame.time.get_ticks()
 
 
     #Valeur du cercle de la tourelle
@@ -78,7 +78,7 @@ def main():
     circle_radius = 30 
 
     #Boucle d'attente avant l'apparition de la page Principale
-    while time.time() - debut < 5:
+    while pygame.time.get_ticks() - debut<5000:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()

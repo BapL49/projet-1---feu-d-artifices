@@ -1,4 +1,5 @@
 import pygame
+import array 
 from pygame import *
 from pygame.locals import *
 from random import random
@@ -23,7 +24,10 @@ class Tourelle():
       
 
         
-    #implementer tri 
+    #implementer tri =https://www.geeksforgeeks.org/python-program-for-merge-sort/ et https://www.geeksforgeeks.org/python-arrays/
+    
+    def tri(self,list_fireworks):
+        pass
     
     def tir_vers_firework(self,position_tir, firework):
        
@@ -37,12 +41,13 @@ class Tourelle():
             self.rect= firework.circle
             
 
-            tir = pygame.draw.line(self.fenetre,ROUGE,self.position,(self.positionX, self.positionY))
+            tir = pygame.draw.line(self.fenetre,ROUGE,self.position,(self.positionX, self.positionY),5)
             
 
             if tir.colliderect(self.rect):#collision avec la divition 
 
                 self.collition=True
+                firework_touchee=firework
 
             if temps_actuel -self.temps_derniere_tir > self.duree_tir:#attendre 0.1 secondes entre chaque tir
                 pygame.display.update(tir)
@@ -71,8 +76,16 @@ class Tourelle():
 
     
     
-            
-        
+class Canon(pygame.Surface):
+    def __init__(self, parent, xpos, ypos, width, height):
+      super(Canon, self).__init__(width, height)
+      self.xpos = xpos
+      self.ypos = ypos
+      self.parent = parent
 
+    def update(self, parent):
+      parent.blit(self, (self.xpos, self.ypos))
 
-
+    def rotate(self, angle):
+      #(your rotation code goes here)
+      pass

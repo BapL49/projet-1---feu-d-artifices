@@ -6,7 +6,6 @@ from Division import *
 from Fleurs import *
 from class_Tourelle import *
 import math
-from CompteurPoints import *
 
 HAUTEUR_FENETRE = 600
 LARGEUR_FENETRE = 1000

@@ -5,9 +5,12 @@ from Division import *
 from Fleurs import *
 from class_Tourelle import *
 import math
+pygame.init()
+info_display=pygame.display.Info()
 
-HAUTEUR_FENETRE = 600
-LARGEUR_FENETRE = 1000
+HAUTEUR_FENETRE = info_display.current_h
+LARGEUR_FENETRE = info_display.current_w
+
 
 list_fireworks = [] #liste contenant les instances de la classe division
 limiteSol = HAUTEUR_FENETRE - 60 # position Y du sol
@@ -37,26 +40,26 @@ def gererFirework():
     for firework in list_fireworks: 
         # deltaTime in seconds.
         firework.update() # actualise la position des division
-        # turret.tir((705,345),firework)
+        
         
         current_firework=firework
 
-        turret.tir_vers_firework((705,345),current_firework)
+        turret.tir_vers_firework(debut_tir,current_firework)
         # supprime la divison si elle se trouve au dessus de limiteSol
         if firework.positionY >= limiteSol :
             list_fireworks.remove(firework)
             global points
             points += 10
         
-        if turret.collition == True :
-            list_fireworks.remove(firework)
+            if turret.collition == True and turret.firework_touchee in list_fireworks:
+                list_fireworks.remove(firework)
 
 
 
 #Fonction Principale
 def main():
     #Initialisation de pygame
-    pygame.init()
+    
 
     #Variable de couleur
     BLANC = (255, 255, 255)
@@ -129,6 +132,10 @@ def main():
         tourrelle_circle = pygame.draw.circle(fenetre, VERT, (LARGEUR_FENETRE - 45 , HAUTEUR_FENETRE - 110 ), circle_radius )
         tourrelle_canon = pygame.draw.line(fenetre, VERT, (LARGEUR_FENETRE - 95, HAUTEUR_FENETRE - 145), (LARGEUR_FENETRE - 45, HAUTEUR_FENETRE - 110), 10)
         fenetre.blit(quit_surface,(0,0),)
+
+        #position de debut du tir
+        global debut_tir
+        debut_tir=(LARGEUR_FENETRE - 95, HAUTEUR_FENETRE - 145)
         
         # afficher compteur de points
         font = pygame.font.SysFont('comic Sans MS', 20)
@@ -142,7 +149,7 @@ def main():
             gererFirework()
             
     
-        #turret.tir_vers_souris((705,345))
+
         
         pygame.time.Clock().tick(30)
     pygame.quit()

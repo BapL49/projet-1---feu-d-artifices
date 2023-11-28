@@ -45,9 +45,10 @@ class Tourelle():
             
 
             if tir.colliderect(self.rect):#collision avec la divition 
-
+                
                 self.collition=True
-                firework_touchee=firework
+                self.firework_touchee=firework
+                
 
             if temps_actuel -self.temps_derniere_tir > self.duree_tir:#attendre 0.1 secondes entre chaque tir
                 pygame.display.update(tir)

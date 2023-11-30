@@ -4,6 +4,7 @@ from pygame.locals import *
 from Division import *
 from Fleurs import *
 from class_Tourelle import *
+from test import *
 import math
 pygame.init()
 info_display=pygame.display.Info()
@@ -37,22 +38,28 @@ def fireworkFunction(posY, posX): # crée les instances de la classe division
 
 
 def gererFirework():
+    #tri fusion recursif pour trouver le firework le plus proche
+    mergeSort(list_fireworks,0,len(list_fireworks)-1,debut_tir)
     for firework in list_fireworks: 
         # deltaTime in seconds.
         firework.update() # actualise la position des division
         
         
-        current_firework=firework
+        
+        firework
+        #methode tir 
+        turret.tir_vers_firework(debut_tir,firework)
+        turret.update_canon(fenetre,BLEU,LARGEUR_FENETRE,HAUTEUR_FENETRE)
 
-        turret.tir_vers_firework(debut_tir,current_firework)
+        
         # supprime la divison si elle se trouve au dessus de limiteSol
         if firework.positionY >= limiteSol :
             list_fireworks.remove(firework)
             global points
             points += 10
         
-            if turret.collition == True and turret.firework_touchee in list_fireworks:
-                list_fireworks.remove(firework)
+        if turret.collition == True and turret.firework_touchee in list_fireworks:
+            list_fireworks.remove(firework)
 
 
 
@@ -62,6 +69,7 @@ def main():
     
 
     #Variable de couleur
+    global BLANC,NOIR,BLEU,ROUGE,VERT
     BLANC = (255, 255, 255)
     NOIR = (0, 0, 0)
     BLEU = (0, 0, 255)
@@ -126,11 +134,12 @@ def main():
         
 
         fenetre.fill(NOIR)
-        #Dessin du sol et de la tourelle
+        # turret.update_canon(fenetre,VERT,LARGEUR_FENETRE,HAUTEUR_FENETRE)
+        #Dessin du sol et du cercle de la tourelle
         sol = pygame.draw.rect(fenetre, BLANC, (0, limiteSol, LARGEUR_FENETRE, 20))
         tourelle_square = pygame.draw.rect(fenetre,VERT, (LARGEUR_FENETRE - 70, HAUTEUR_FENETRE - 100, 50, 50))
         tourrelle_circle = pygame.draw.circle(fenetre, VERT, (LARGEUR_FENETRE - 45 , HAUTEUR_FENETRE - 110 ), circle_radius )
-        tourrelle_canon = pygame.draw.line(fenetre, VERT, (LARGEUR_FENETRE - 95, HAUTEUR_FENETRE - 145), (LARGEUR_FENETRE - 45, HAUTEUR_FENETRE - 110), 10)
+        pygame.draw.line(fenetre, VERT, (LARGEUR_FENETRE - 95, HAUTEUR_FENETRE - 145), (LARGEUR_FENETRE - 45, HAUTEUR_FENETRE - 110), 10)
         fenetre.blit(quit_surface,(0,0),)
 
         #position de debut du tir

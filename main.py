@@ -6,6 +6,8 @@ from Fleurs import *
 from class_Tourelle import *
 from test import *
 import math
+
+#Initialisation de pygame
 pygame.init()
 info_display=pygame.display.Info()
 
@@ -65,7 +67,7 @@ def gererFirework():
 
 #Fonction Principale
 def main():
-    #Initialisation de pygame
+    
     
 
     #Variable de couleur

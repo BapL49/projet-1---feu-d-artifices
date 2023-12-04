@@ -9,32 +9,38 @@ import math
 
 #Initialisation de pygame
 pygame.init()
-info_display=pygame.display.Info()
+info_display=pygame.display.Info() # objet contenant les informations su l'écran
 
 HAUTEUR_FENETRE = info_display.current_h
 LARGEUR_FENETRE = info_display.current_w
 
+#Variable de couleur
+BLANC = (255, 255, 255)
+NOIR = (0, 0, 0)
+BLEU = (0, 0, 255)
+ROUGE = (255, 0, 0)
+VERT = (0, 255, 0)
 
 list_fireworks = [] #liste contenant les instances de la classe division
 limiteSol = HAUTEUR_FENETRE - 60 # position Y du sol
-fenetre = display.set_mode((LARGEUR_FENETRE, HAUTEUR_FENETRE))
+fenetre = display.set_mode((LARGEUR_FENETRE, HAUTEUR_FENETRE)) # initialise la fortnite
 
-# variable de points global
-global points
+# variable de points 
+global points 
 points = 0
 
-turret = Tourelle(fenetre)#instance de la classe tourelle
+turret = Tourelle(fenetre) # instance de la classe tourelle
 
 
 def fireworkFunction(posY, posX): # crée les instances de la classe division
     centre_cercle = [posX, posY]
     point_n = [centre_cercle[0] - 55, centre_cercle[1]]
     for x in range(8):
-        #arc tangente des points
+        # arc tangente des points pour calculer la direction vers laquelle se dirige la division
         angle = math.atan2(point_n[1] - centre_cercle[1], point_n[0] - centre_cercle[0])
-        # ajout des instances à la liste list_fireworks
+        # ajout des instances de chaque division à la liste list_fireworks
         list_fireworks.append(Division(point_n[0], point_n[1], angle, fenetre))
-        # calcul du nouveau point
+        # calcul de la position du nouveau point
         point_n = [(point_n[0] - posX) * math.cos(2 * math.pi / 8) - (point_n[1] - posY) * math.sin(2 * math.pi / 8) + posX, (point_n[0] - posX) * math.sin(2 * math.pi / 8) + (point_n[1] - posY) * math.cos(2 * math.pi / 8) + posY]
 
 
@@ -43,23 +49,21 @@ def gererFirework():
     #tri fusion recursif pour trouver le firework le plus proche
     mergeSort(list_fireworks,0,len(list_fireworks)-1,debut_tir)
     for firework in list_fireworks: 
-        # deltaTime in seconds.
         firework.update() # actualise la position des division
         
-        
-        
-        firework
+
         #methode tir 
-        turret.tir_vers_firework(debut_tir,firework)
-        turret.update_canon(fenetre,BLEU,LARGEUR_FENETRE,HAUTEUR_FENETRE)
+        turret.tir_vers_firework(debut_tir,firework) # déclenche un tir vers une division du firework
+        turret.update_canon(fenetre,VERT,LARGEUR_FENETRE,HAUTEUR_FENETRE) # actualise la position du canon
 
         
         # supprime la divison si elle se trouve au dessus de limiteSol
         if firework.positionY >= limiteSol :
-            list_fireworks.remove(firework)
-            global points
-            points += 10
+            list_fireworks.remove(firework) # supprime la division concernée
+            global points 
+            points += 10 # ajoute 10 points à chaque division qui touche le sol
         
+        # supprime la division concernée si elle est touché apr un tir de la tourelle
         if turret.collition == True and turret.firework_touchee in list_fireworks:
             list_fireworks.remove(firework)
 
@@ -67,17 +71,6 @@ def gererFirework():
 
 #Fonction Principale
 def main():
-    
-    
-
-    #Variable de couleur
-    global BLANC,NOIR,BLEU,ROUGE,VERT
-    BLANC = (255, 255, 255)
-    NOIR = (0, 0, 0)
-    BLEU = (0, 0, 255)
-    ROUGE = (255, 0, 0)
-    VERT = (0, 255, 0)
-
 
     display.set_caption("Feu d'artifice")
 
@@ -119,7 +112,7 @@ def main():
         for event in pygame.event.get():
             if event.type == QUIT:
                 continuer = False
-            # si on clique sur la croix
+            # si clique sur la croix alors le jeu se ferme
             if event.type == MOUSEBUTTONUP:
                 mouse_x, mouse_y = pygame.mouse.get_pos()
                 if quit_rect.collidepoint(mouse_x,mouse_y):
@@ -128,15 +121,13 @@ def main():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 # si clique gauche de la souris
                 if event.button == 1:
+                    # initialise 8 divisions de feu d'artifice autour des coordonnées du clique
                     if pygame.mouse.get_pos()[1] < limiteSol:
                         fireworkFunction(event.pos[1], event.pos[0])
                          
 
-
-        
-
         fenetre.fill(NOIR)
-        # turret.update_canon(fenetre,VERT,LARGEUR_FENETRE,HAUTEUR_FENETRE)
+        
         #Dessin du sol et du cercle de la tourelle
         sol = pygame.draw.rect(fenetre, BLANC, (0, limiteSol, LARGEUR_FENETRE, 20))
         tourelle_square = pygame.draw.rect(fenetre,VERT, (LARGEUR_FENETRE - 70, HAUTEUR_FENETRE - 100, 50, 50))
@@ -149,18 +140,18 @@ def main():
         debut_tir=(LARGEUR_FENETRE - 95, HAUTEUR_FENETRE - 145)
         
         # afficher compteur de points
-        font = pygame.font.SysFont('comic Sans MS', 20)
-        compteur = font.render(f'POINTS : {points}', False, (255, 255, 255))
-
-        fenetre.blit(compteur, (LARGEUR_FENETRE - 220, 30))
+        font = pygame.font.SysFont('comic Sans MS', 20) # initialise la police d'écriture
+        # initialisation de la position et du contenu du compteur
+        compteur = font.render(f'POINTS : {points}', False, (255, 255, 255)) 
+      
+        # affiche le compteur
+        fenetre.blit(compteur, (LARGEUR_FENETRE - 220, 30)) 
         pygame.display.flip()
    
         # permet d'actualiser la position des divisions et de les supprimer
         if len(list_fireworks) > 0:
             gererFirework()
             
-    
-
         
         pygame.time.Clock().tick(30)
     pygame.quit()

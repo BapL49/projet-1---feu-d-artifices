@@ -4,7 +4,6 @@ from pygame.locals import *
 from Division import *
 from Fleurs import *
 from class_Tourelle import *
-from test import *
 import math
 
 #Initialisation de pygame

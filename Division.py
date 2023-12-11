@@ -8,26 +8,26 @@ class Division:
         self.positionX = positionX
         self.positionY = positionY
         self.direction = direction # angle (en radian) vers lequel se dirige la division
-        self.vitesseInitialeBase = 6 # constante vitesse de départ
-        self.vitesseInitialeY = self.vitesseInitialeBase * math.sin(self.direction) #vitesse de départ Y
-        self.vitesse = randint(8, 22) # vitesse 
-        self.acceleration = 9.8
+        self.vitesseInitialeBase = 6 # constante vitesse de départ de la division (commune à toutes les divisions)
+        self.vitesseInitialeY = self.vitesseInitialeBase * math.sin(self.direction) # vitesse de départ sur l'axe Y
+        self.acceleration = 9.8 # constante d'accélération 
         self.couleur = (255, 0, 0)
-        self.circle_radius = randint(5, 15)
+        self.circle_radius = randint(5, 15) # circonférence de la division
         self.fenetre = fenetre
         
-        self.circle = pygame.draw.circle(self.fenetre, self.couleur, (int(self.positionX), int(self.positionY)), self.circle_radius)
+        # affichage de la division
+        self.circle = pygame.draw.circle(self.fenetre, self.couleur, (int(self.positionX), int(self.positionY)), self.circle_radius)    
         
-        # affiche un cercle à l'initialisation d'une instance de la classe
-        pygame.display.update(self.circle)
+        pygame.display.update(self.circle) # affiche un cercle à l'initialisation d'une instance de la classe
 
 
     def move(self):
-        dt = 0.1
+        dt = 0.1 # delta time (valeur fixe)
         self.positionY += 0.5 * self.acceleration * dt**2 + self.vitesseInitialeY * dt
-        self.positionX += 0.5 * self.acceleration * dt**2 + self.vitesse * self.vitesseInitialeBase * math.cos(self.direction) * dt
+        self.positionX += 0.5 * self.acceleration * dt**2 + self.acceleration * self.vitesseInitialeBase * math.cos(self.direction) * dt
+        # met à jour la position de la division
         self.circle = pygame.draw.circle(self.fenetre, self.couleur, (int(self.positionX), int(self.positionY)), self.circle_radius)
-        self.vitesseInitialeY += self.vitesse
+        self.vitesseInitialeY += self.acceleration # augmente la vitesse sur l'axe Y
 
 
     def update(self):

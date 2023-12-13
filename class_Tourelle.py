@@ -1,5 +1,4 @@
 import pygame
-import array 
 from pygame import *
 from pygame.locals import *
 from random import random
@@ -16,25 +15,19 @@ class Tourelle():
     def __init__(self,fenetre):
       
         self.fenetre = fenetre #doit tojours etre la fenetre
-        self.fenetre_rect = fenetre.get_rect()
         self.temps_tir=0
         self.delai_tir=333 #3 tirs par seconde
         self.duree_tir=100 # le tir apparait pendant 0.1 sec
         self.temps_derniere_tir=0 # temps depuis le dernier tir
         self.collition=False
-      
-
-        
+             
     #implementer tri =https://www.geeksforgeeks.org/python-program-for-merge-sort/ et https://www.geeksforgeeks.org/python-arrays/
-    
-    def tri(self,list_fireworks):
-        pass
     
     def tir_vers_firework(self,position_tir, firework):
        
-        temps_actuel=pygame.time.get_ticks()
+        self.temps_actuel=pygame.time.get_ticks()
         self.collition=False    
-        if temps_actuel - self.temps_tir > self.delai_tir: # attendre 333 milisecondes entre chaque tir
+        if self.temps_actuel - self.temps_tir > self.delai_tir: # attendre 333 milisecondes entre chaque tir
             
             self.position=position_tir
             self.positionX = firework.positionX
@@ -51,11 +44,11 @@ class Tourelle():
                 self.firework_touchee=firework
                 
 
-            if temps_actuel -self.temps_derniere_tir > self.duree_tir:#attendre 0.1 secondes entre chaque tir
+            if self.temps_actuel -self.temps_derniere_tir > self.duree_tir:#attendre 0.1 secondes entre chaque tir
                 pygame.display.update(tir)
 
-            self.temps_tir=temps_actuel
-            self.temps_derniere_tir=temps_actuel
+            self.temps_tir=self.temps_actuel
+            self.temps_derniere_tir=self.temps_actuel
 
     def update_canon(self,fenetre,couleur,width,height):
         

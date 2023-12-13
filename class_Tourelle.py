@@ -10,7 +10,7 @@ from math import sqrt
 #Une division touchée par un tir disparaît.
 ROUGE = (255, 0, 0)
 BLANC = (255, 255, 255)
-class Tourelle():
+class Tourelle:
 
     def __init__(self,fenetre):
       

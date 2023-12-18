@@ -3,7 +3,7 @@
 
 Projet en python
 
-
+La gestion et l'affichage des fleurs n'est pas optimisé. Le code correspondant est entre commentaire et peut être activer en décommentant les lignes signalées par : DESACTIVER [ ... ] DESACTIVER
 
 
 

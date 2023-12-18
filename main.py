@@ -6,6 +6,12 @@ from Fleurs import *
 from class_Tourelle import *
 import math
 
+
+# Les fonctions et méthodes qui permettent de gérer et d'afficher les fleurs sont désactivées 
+# car elles causes des problèmes de performances.
+# Vous pouvez les activer en décommentant le code entre DESACTIVER [ ... ] DESACTIVER.
+
+
 #Initialisation de pygame
 pygame.init()
 info_display=pygame.display.Info() # objet contenant les informations su l'écran
@@ -30,6 +36,23 @@ points = 0
 
 turret = Tourelle(fenetre) # instance de la classe tourelle
 
+# Create a group for plants
+
+# DESACTIVER [
+
+# plant_group = pygame.sprite.Group()
+
+# def creerFleur(positionX):
+#     new_plant = Fleurs(positionX, limiteSol - 30)
+#     plant_group.add(new_plant)
+
+
+# def gererFleur():
+#     for fleur in plant_group.sprites():
+#         fleur.grow(1)
+#         print(fleur)
+
+# ] desactiver
 
 def fireworkFunction(posY, posX): # crée les instances de la classe division
     centre_cercle = [posX, posY]
@@ -41,6 +64,7 @@ def fireworkFunction(posY, posX): # crée les instances de la classe division
         list_fireworks.append(Division(point_n[0], point_n[1], angle, fenetre))
         # calcul de la position du nouveau point
         point_n = [(point_n[0] - posX) * math.cos(2 * math.pi / 8) - (point_n[1] - posY) * math.sin(2 * math.pi / 8) + posX, (point_n[0] - posX) * math.sin(2 * math.pi / 8) + (point_n[1] - posY) * math.cos(2 * math.pi / 8) + posY]
+
 
 
 
@@ -58,6 +82,11 @@ def gererFirework():
         
         # supprime la divison si elle se trouve au dessus de limiteSol
         if firework.positionY >= limiteSol :
+            # DESACTIVER [
+            
+            # creerFleur(firework.positionX)
+
+            # ] DESACTIVER
             list_fireworks.remove(firework) # supprime la division concernée
             global points 
             points += 10 # ajoute 10 points à chaque division qui touche le sol
@@ -65,6 +94,7 @@ def gererFirework():
         # supprime la division concernée si elle est touché apr un tir de la tourelle
         if turret.collition == True and turret.firework_touchee in list_fireworks:
             list_fireworks.remove(firework)
+
 
 
 
@@ -108,6 +138,35 @@ def main():
     #Boucle Continue de Jeu
     continuer = True
     while continuer :
+        fenetre.fill(NOIR)
+                          
+        
+        #Dessin du sol et du cercle de la tourelle
+        sol = pygame.draw.rect(fenetre, BLANC, (0, limiteSol, LARGEUR_FENETRE, 20))
+        tourelle_square = pygame.draw.rect(fenetre,VERT, (LARGEUR_FENETRE - 70, HAUTEUR_FENETRE - 100, 50, 50))
+        tourrelle_circle = pygame.draw.circle(fenetre, VERT, (LARGEUR_FENETRE - 45 , HAUTEUR_FENETRE - 110 ), circle_radius )
+        pygame.draw.line(fenetre, VERT, (LARGEUR_FENETRE - 95, HAUTEUR_FENETRE - 145), (LARGEUR_FENETRE - 45, HAUTEUR_FENETRE - 110), 10)
+        fenetre.blit(quit_surface,(0,0),)
+
+        # afficher compteur de points
+        font = pygame.font.SysFont('comic Sans MS', 20) # initialise la police d'écriture
+        # initialisation de la position et du contenu du compteur
+        compteur = font.render(f'POINTS : {points}', False, (255, 255, 255)) 
+      
+        # affiche le compteur
+        fenetre.blit(compteur, (LARGEUR_FENETRE - 220, 30)) 
+
+        # permet d'afficher les fleurs 
+        # DESACTIVER [
+
+        # plant_group.draw(fenetre)
+        # plant_group.update()
+
+        # ] DESACTIVER
+
+        pygame.display.flip()
+
+
         for event in pygame.event.get():
             if event.type == QUIT:
                 continuer = False
@@ -123,34 +182,24 @@ def main():
                     # initialise 8 divisions de feu d'artifice autour des coordonnées du clique
                     if pygame.mouse.get_pos()[1] < limiteSol:
                         fireworkFunction(event.pos[1], event.pos[0])
-                         
-
-        fenetre.fill(NOIR)
         
-        #Dessin du sol et du cercle de la tourelle
-        sol = pygame.draw.rect(fenetre, BLANC, (0, limiteSol, LARGEUR_FENETRE, 20))
-        tourelle_square = pygame.draw.rect(fenetre,VERT, (LARGEUR_FENETRE - 70, HAUTEUR_FENETRE - 100, 50, 50))
-        tourrelle_circle = pygame.draw.circle(fenetre, VERT, (LARGEUR_FENETRE - 45 , HAUTEUR_FENETRE - 110 ), circle_radius )
-        pygame.draw.line(fenetre, VERT, (LARGEUR_FENETRE - 95, HAUTEUR_FENETRE - 145), (LARGEUR_FENETRE - 45, HAUTEUR_FENETRE - 110), 10)
-        fenetre.blit(quit_surface,(0,0),)
 
         #position de debut du tir
         global debut_tir
         debut_tir=(LARGEUR_FENETRE - 95, HAUTEUR_FENETRE - 145)
         
-        # afficher compteur de points
-        font = pygame.font.SysFont('comic Sans MS', 20) # initialise la police d'écriture
-        # initialisation de la position et du contenu du compteur
-        compteur = font.render(f'POINTS : {points}', False, (255, 255, 255)) 
-      
-        # affiche le compteur
-        fenetre.blit(compteur, (LARGEUR_FENETRE - 220, 30)) 
-        pygame.display.flip()
    
         # permet d'actualiser la position des divisions et de les supprimer
         if len(list_fireworks) > 0:
             gererFirework()
-            
+        
+        # permet d'actualiser l'état de la fleur
+        # DESACTIVER [
+
+        # if len(plant_group) > 0:
+        #     gererFleur()
+
+        # ] DESACTIVER
         
         pygame.time.Clock().tick(30)
     pygame.quit()
